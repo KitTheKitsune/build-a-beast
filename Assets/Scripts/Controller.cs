@@ -16,7 +16,6 @@ public class Controller : MonoBehaviour {
     private float horizontal;
 
     public float fallMultiplier = 2.5f;
-    public float lowJumpMultiplier = 2f;
 
     void Start() {
         rb = gameObject.GetComponent<Rigidbody2D>();
