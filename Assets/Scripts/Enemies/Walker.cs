@@ -2,11 +2,15 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
+//This is a comment. Are you happy now?
+
 [RequireComponent(typeof(Rigidbody2D))]
 public class Walker : MonoBehaviour {
 
     public BaseEnemy walker;
     public Transform target;
+
+    public Vector3 raycastOffset = new Vector3(0f, 0.25f, 0f);
 
     public bool canSeeTarget;
 
@@ -21,14 +25,34 @@ public class Walker : MonoBehaviour {
     }
 
     private void Update() {
-        RaycastHit2D hit = facingLeft ? Physics2D.Raycast(transform.position, Vector2.left) : Physics2D.Raycast(transform.position, -Vector2.left);
+        RaycastHit2D hit = walker.facingLeft ? Physics2D.Raycast(transform.position + raycastOffset, transform.position + raycastOffset + Vector3.left * 10f / 0.4f) : Physics2D.Raycast(transform.position + raycastOffset, transform.position + raycastOffset - Vector3.left * 10f / 0.4f);
 
-        if (hit.collider != null & hit.collider.gameObject.CompareTag("Player")) {
-            canSeeTarget = true;
+        if (hit.transform != null) {
+            Debug.Log(hit.transform.tag);
+            if (hit.transform.tag == "Player") canSeeTarget = true;
         } else canSeeTarget = false;
+
+        if(!canSeeTarget) timeUntilTurn -= Time.deltaTime;
+        if(timeUntilTurn <= 0f) {
+            walker.facingLeft = !walker.facingLeft;
+            timeUntilTurn = turnTimer;
+        }
     }
 
     private void FixedUpdate() {
-        if(canSeeTarget) Transform.
+        Vector2 velocity;
+        velocity.x = 0;
+        velocity.y = rb.velocity.y;
+        if (canSeeTarget) velocity += (walker.facingLeft) ? Vector2.left * walker.walkSpeed : Vector2.right * walker.walkSpeed;
+
+        rb.velocity = velocity;
+    }
+
+    private void OnDrawGizmos () {
+        if(walker != null) {
+            Gizmos.color = Color.red;
+            if (walker.facingLeft) Gizmos.DrawLine(transform.position, transform.position + Vector3.left * 10f);
+            else Gizmos.DrawLine(transform.position, transform.position - Vector3.left * 10f);
+        }
     }
 }

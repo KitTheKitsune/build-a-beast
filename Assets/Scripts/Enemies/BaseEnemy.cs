@@ -18,8 +18,4 @@ public class BaseEnemy {
         walkSpeed = _walkSpeed;
         doesMove = _doesMove;
     }
-
-    public void DoMove(Transform target) {
-
-    }
 }
