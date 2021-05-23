@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.SceneManagement;
 
 public class GameManager : MonoBehaviour {
 
@@ -8,6 +9,9 @@ public class GameManager : MonoBehaviour {
     public Sprite[] wallTiles;
     public Transform tileBase;
     public GameObject environment;
+    //public ExitLadder ladder;
+
+    public int levelLoaded = 0;
 
     void Start() {
         for(int i = 0; i < levelSize.x; i++) {
@@ -17,5 +21,15 @@ public class GameManager : MonoBehaviour {
                 tile.transform.SetParent(environment.transform);
             }
         }
+    }
+
+    void Update() {
+        /*if(ladder.inContactWithPlayer) {
+            levelLoaded++;
+
+            string sceneName = "Level" + levelLoaded;
+
+            SceneManager.LoadScene(sceneName);
+        }*/
     }
 }
