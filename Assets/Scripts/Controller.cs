@@ -28,21 +28,24 @@ public class Controller : MonoBehaviour {
     private float maxHP = 5;
     //current health of player
     public float currentHP;
+    //is the player alive?
+    private bool dead;
     
 
     void Start() {
         rb = gameObject.GetComponent<Rigidbody2D>();
         currentHP = maxHP;
+        dead = false;
     }
 
     void Update() {
         jump = Input.GetButton("Jump");
         horizontal = Input.GetAxisRaw("Horizontal");
+        if(currHP <= 0) dead = true;
+        if(dead) onDeath();
     }
     
-    bool canJump(){
-        return jump && !airborne;
-    }
+    
 
     void FixedUpdate() {
         velocity.x = 0f;
@@ -59,18 +62,30 @@ public class Controller : MonoBehaviour {
         rb.velocity = velocity;
     }
 
+    //when colliding with any game object
     void OnCollisionEnter2D(Collision2D col) {
         if (col.gameObject.CompareTag("Platform")) {
 
             //Debug.Log(col.gameObject);
 
             if (transform.position.y > col.transform.position.y) airborne = false;
+        } else if (col.gameObject.CompareTag("Enemy")) {
+            //currentHP -= ?ENEMY_DAMAGE?
         }
     }
-
+    
+    //when stop colliding with any game object
     void OnCollisionExit2D(Collision2D col) {
         if (col.gameObject.CompareTag("Platform")) {
             airborne = true;
         }
+    }
+    
+    bool canJump() {
+        return jump && !airborne;
+    }
+    
+    
+    void onDeath() {
     }
 }
