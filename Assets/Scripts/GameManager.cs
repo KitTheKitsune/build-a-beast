@@ -16,15 +16,15 @@ public class GameManager : MonoBehaviour {
     //exit ladder object the scene is looking at
     //public ExitLadder ladder;
     //is the scene in the process of changing? This helps prevent multiple calls
-    //public boolean sceneChanging;
+    public boolean sceneChanging;
     //the player game object for use in scene transition
-    //public GameObject player;
+    public GameObject player;
     //the current level that is loaded 0 for testing >0 are actual levels in numeric order
     public int levelLoaded = 0;
 
     void Start() {
         //scene has started and thus scene is able to change
-        //scenechanging = false;
+        scenechanging = false;
         
         //background generation [ignore]
         for(int i = 0; i < levelSize.x; i++) {
@@ -37,7 +37,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
-        /*if(ladder.inContactWithPlayer && !sceneChanging) {
+        if(player.levelEnd && !sceneChanging) {
             //ensures this is not called multiple times before scene change
             sceneChanging = true;
             
@@ -58,6 +58,6 @@ public class GameManager : MonoBehaviour {
             SceneManager.UnloadSceneAsync(currScene);
 
             
-        }*/
+        }
     }
 }
