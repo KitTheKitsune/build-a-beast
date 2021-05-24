@@ -13,16 +13,18 @@ public class GameManager : MonoBehaviour {
     public Transform tileBase;
     //parent object that the background tiles are instantiated in
     public GameObject environment;
-    //exit ladder object the scene is looking at
-    //public ExitLadder ladder;
     //is the scene in the process of changing? This helps prevent multiple calls
-    public boolean sceneChanging;
+    public bool sceneChanging;
     //the player game object for use in scene transition
     public GameObject player;
+    //the controller object attached to the player
+    public Controller controller;
     //the current level that is loaded 0 for testing >0 are actual levels in numeric order
     public int levelLoaded = 0;
 
     void Start() {
+        controller = player.GetComponent<Controller>();
+
         //scene has started and thus scene is able to change
         scenechanging = false;
         
@@ -37,7 +39,7 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
-        if(player.levelEnd && !sceneChanging) {
+        if(controller.levelEnd && !sceneChanging) {
             //ensures this is not called multiple times before scene change
             sceneChanging = true;
             

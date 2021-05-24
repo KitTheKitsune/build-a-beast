@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 [RequireComponent(typeof(Rigidbody2D))]
-public class Walker : MonoBehaviour {
+public class Jumper : MonoBehaviour {
 
     //keeps track of health and stats
     public BaseEnemy walker;
