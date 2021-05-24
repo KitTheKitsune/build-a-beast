@@ -30,12 +30,15 @@ public class Controller : MonoBehaviour {
     public float currentHP;
     //is the player alive?
     private bool dead;
+    //hit level end
+    private bool levelEnd;
     
 
     void Start() {
         rb = gameObject.GetComponent<Rigidbody2D>();
         currentHP = maxHP;
         dead = false;
+        levelEnd = false;
     }
 
     void Update() {
@@ -71,6 +74,8 @@ public class Controller : MonoBehaviour {
             if (transform.position.y > col.transform.position.y) airborne = false;
         } else if (col.gameObject.CompareTag("Enemy")) {
             //currentHP -= ?ENEMY_DAMAGE?
+        } else if (col.gameObject.CompareTag("ExitLadder")) {
+            levelEnd = true;
         }
     }
     
