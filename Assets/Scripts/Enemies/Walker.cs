@@ -20,7 +20,7 @@ public class Walker : MonoBehaviour {
 
     //instantiate initial fields
     private void Start() {
-        walker = new BaseEnemy(1f, 3f, true);
+        walker = new BaseEnemy(1f, 3f, 1f, true);
         target = GameObject.Find("Player").transform;
         rb = GetComponent<Rigidbody2D>();
     }
