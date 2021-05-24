@@ -57,7 +57,14 @@ public class Walker : MonoBehaviour {
         velocity.y = rb.velocity.y;
         
         //set velocity relative to target if they are seen
-        if (canSeeTarget) velocity += (walker.facingLeft) ? Vector2.left * walker.walkSpeed : Vector2.right * walker.walkSpeed;
+        if (canSeeTarget){
+          velocity += Vector2.up * walker.walkSpeed;
+          if (walker.facingLeft) {
+            velocity += Vector2.left * walker.walkSpeed; 
+           }else {
+             velocity += Vector2.right * walker.walkSpeed;
+           }
+         }
         //move this
         rb.velocity = velocity;
     }
