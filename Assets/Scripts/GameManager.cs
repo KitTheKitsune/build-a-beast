@@ -11,6 +11,7 @@ public class GameManager : MonoBehaviour {
     public GameObject environment;
     //public ExitLadder ladder;
     //public boolean sceneChanging;
+    //public GameObject player;
 
     public int levelLoaded = 0;
 
@@ -29,12 +30,24 @@ public class GameManager : MonoBehaviour {
         /*if(ladder.inContactWithPlayer && !sceneChanging) {
             //ensures this is not called multiple times before scene change
             sceneChanging = true;
+            
+            //grab the current scene
+            Scene currScene = SceneManager.GetActiveScene();
+            
             //increment the level name
             levelLoaded++;
             string sceneName = "Level" + levelLoaded;
-
+            
             //load next level scene
-            SceneManager.LoadScene(sceneName);
+            SceneManager.LoadSceneAsync(sceneName,LoadSceneMode.additive);
+            
+            //move player to new scene
+            SceneManager.MoveGameObjectToScene(player,GameManager.GetSceneByName(sceneName));
+            
+            //unload current scene
+            SceneManager.UnloadSceneAsync(currScene);
+
+            
         }*/
     }
 }
