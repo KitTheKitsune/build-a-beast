@@ -10,10 +10,12 @@ public class GameManager : MonoBehaviour {
     public Transform tileBase;
     public GameObject environment;
     //public ExitLadder ladder;
+    //public boolean sceneChanging;
 
     public int levelLoaded = 0;
 
     void Start() {
+        //scenechanging = false;
         for(int i = 0; i < levelSize.x; i++) {
             for(int j = 0; j < levelSize.y; j++) {
                 Transform tile = Instantiate(tileBase, new Vector3(i - levelSize.x/2, j - levelSize.y/2, 7f), Quaternion.identity);
@@ -24,11 +26,14 @@ public class GameManager : MonoBehaviour {
     }
 
     void Update() {
-        /*if(ladder.inContactWithPlayer) {
+        /*if(ladder.inContactWithPlayer && !sceneChanging) {
+            //ensures this is not called multiple times before scene change
+            sceneChanging = true;
+            //increment the level name
             levelLoaded++;
-
             string sceneName = "Level" + levelLoaded;
 
+            //load next level scene
             SceneManager.LoadScene(sceneName);
         }*/
     }
